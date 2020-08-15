@@ -1,0 +1,1 @@
+sigmac -c ecs-cloudtrail.yml  -t es-qs aws_rds_snapshot_success.yml

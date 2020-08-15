@@ -1,0 +1,23 @@
+title: AWS RDS CreateDB Snapshot From UnusualIP
+status: experimental
+description: An attempt to create database snapshot from unusual IP 
+references:
+  - https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBSnapshot.html  
+author: Semanur Guneysu
+date: 2020/08/14
+tags:
+  - attack.collection       
+  - attack.exfiltration
+level: low
+logsource:
+  service: cloudtrail
+detection:
+  selection:
+    eventName: 'CreateDBSnapshot'
+    eventSource: 'rds.amazonaws.com'
+  filter1:
+    eventName: 'ConsoleLogin'
+    responseElements: '*Success*'
+  filter2:
+    sourceIPAddress: "159.146.43.136"
+  condition: selection and filter1 and not filter2

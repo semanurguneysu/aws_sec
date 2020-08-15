@@ -1,0 +1,21 @@
+title: AWS RDS CreateDBSecurityGroup from Unusual IP
+description: Creating DB Security Group could be malicious internal threat activity and should be monitored.
+references:
+  - https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBSecurityGroup.html
+author: Semanur Guneysu
+date: 2020/08/14
+tags:
+  - attack.persistence     
+level: low
+logsource:
+  service: cloudtrail
+detection:
+  selection:
+    eventName: 'CreateDBSecurityGroup'
+    eventSource: 'rds.amazonaws.com'
+  filter1:
+    eventName: 'ConsoleLogin'
+    responseElements: '*Success*'
+  filter2:
+    sourceIPAddress: "159.146.43.136"
+  condition: selection and filter1 and not filter2
