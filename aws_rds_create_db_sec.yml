@@ -17,5 +17,5 @@ detection:
     eventName: 'ConsoleLogin'
     responseElements: '*Success*'
   filter2:
-    sourceIPAddress: "159.146.43.136"
+    sourceIPAddress: "159.146.x.x"
   condition: selection and filter1 and not filter2
